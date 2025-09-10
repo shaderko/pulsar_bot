@@ -53,8 +53,9 @@ class Activity(commands.Cog):
             await levels.add_xp_helper(user, config.active_xp)
             counter += 1
 
-        logger.info(
-            f"Performed active bonus XP additon and game recognition for {counter} users.")
+        if counter > 0:
+            logger.info(
+                f"Performed active bonus XP additon and game recognition for {counter} users.")
 
     @tasks.loop(hours=6)
     async def db_add(self):
