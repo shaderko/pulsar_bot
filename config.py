@@ -13,6 +13,7 @@ class Config:
         self.intents.voice_states = True
         self.intents.presences = True
         self.token = os.getenv('DISCORD_TOKEN')
+        self.mistral_api_key = os.getenv('MISTRAL_API_KEY')
         self.activity = discord.Game(name="5D Chess")
         self.startup_extensions = ["cogs.events.bot_startup",
                                    "cogs.commands.basic",

@@ -12,6 +12,7 @@ aiodns = "*"
 brotlipy = "*"
 pillow = "==9.5.0"
 markovify = "*"
+mistralai = "*"
 
 [dev-packages]
 autopep8 = "*"
