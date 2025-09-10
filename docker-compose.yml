@@ -1,0 +1,23 @@
+version: '3.1'
+
+services:
+  db:
+    image: mongo:latest
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_DATABASE: pulsar_bot
+    volumes:
+      - mongo_data:/data/db
+
+  pulsar_bot:
+    build: .
+    restart: unless-stopped
+    volumes:
+      - .:/pulsar_bot
+    depends_on:
+      - db
+    environment:
+      - MONGO_URL=mongodb://db:27017/pulsar_bot
+
+volumes:
+  mongo_data:
