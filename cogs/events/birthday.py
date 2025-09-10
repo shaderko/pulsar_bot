@@ -9,7 +9,7 @@ from config import config
 
 logger = logging.getLogger(__name__)
 
-connect(host=os.getenv('MONGO_URL'))
+connect(host=os.getenv("MONGO_URL"))
 
 
 class BirthdayEvents(commands.Cog):
@@ -26,10 +26,15 @@ class BirthdayEvents(commands.Cog):
             if not member.birthday:
                 continue
 
-            logger.info(
-            f"Wishing happy birthday for {user.name}")
-            if member.birthday.month == discord.utils.utcnow().month and member.birthday.day == discord.utils.utcnow().day:
-                await self.bot.get_channel(config.birthday_channel).send(f"Happy birthday, {user.mention}! You're now {discord.utils.utcnow().year - member.birthday.year} years old! 🥳")
+            logger.info(f"Wishing happy birthday for {user.name}")
+            if (
+                member.birthday.month == discord.utils.utcnow().month
+                and member.birthday.day == discord.utils.utcnow().day
+            ):
+                await self.bot.get_channel(config.birthday_channel).send(
+                    f"Happy birthday, {user.mention}! You're now {
+                        discord.utils.utcnow().year - member.birthday.year} years old! 🥳"
+                )
 
     @commands.Cog.listener()
     async def on_ready(self):

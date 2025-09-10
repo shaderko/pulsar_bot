@@ -5,9 +5,10 @@ from mongoengine import connect
 from models.models import Game, Member
 import os
 import logging
+
 logger = logging.getLogger(__name__)
 
-connect(host=os.getenv('MONGO_URL'))
+connect(host=os.getenv("MONGO_URL"))
 
 
 class Activity(commands.Cog):
@@ -15,9 +16,7 @@ class Activity(commands.Cog):
         self.bot = bot
 
     def game_time(self, user):
-        if user.activity and  \
-                user.activity.type == ActivityType.playing:
-
+        if user.activity and user.activity.type == ActivityType.playing:
             activity = user.activity
             all_games = Game.objects(gid=activity.application_id)
             if not all_games:
@@ -28,11 +27,11 @@ class Activity(commands.Cog):
             if not member.games:
                 member.games = {}
 
-            member.games[str(activity.application_id)] = member.games.get(
-                str(activity.application_id), 0) + 5
+            member.games[str(activity.application_id)] = (
+                member.games.get(str(activity.application_id), 0) + 5
+            )
 
             member.save()
-
 
     @tasks.loop(minutes=5.0)
     async def active(self):
@@ -41,8 +40,13 @@ class Activity(commands.Cog):
         guild = utils.get(self.bot.guilds, id=config.guild_ids[0])
 
         for channel in guild.voice_channels:
-            channel_members = [user for user in channel.members if not user.bot and \
-                    not user.voice.self_mute and not user.voice.self_deaf]
+            channel_members = [
+                user
+                for user in channel.members
+                if not user.bot
+                and not user.voice.self_mute
+                and not user.voice.self_deaf
+            ]
             if len(channel_members) > 1:
                 active_list.extend(channel_members)
 
@@ -55,7 +59,9 @@ class Activity(commands.Cog):
 
         if counter > 0:
             logger.info(
-                f"Performed active bonus XP additon and game recognition for {counter} users.")
+                f"Performed active bonus XP additon and game recognition for {
+                    counter} users."
+            )
 
     @tasks.loop(hours=6)
     async def db_add(self):

@@ -12,7 +12,7 @@ class General(commands.Cog):
     async def on_message(self, message):
         if message.author.bot:
             return
-        
+
         if self.bot.user.id in (user.id for user in message.mentions):
             async with message.channel.typing():
                 try:
@@ -37,4 +37,3 @@ class General(commands.Cog):
 
 def setup(bot):
     bot.add_cog(General(bot))
-
