@@ -141,7 +141,8 @@ class Levels(commands.Cog):
             return
 
         await self.show_progress(user)
-        await ctx.followup.send(file=discord.File("images/banner.png"))
+        banner_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'images/banner.png')
+        await ctx.followup.send(file=discord.File(banner_path))
 
     @slash_command(name='time', description="Show user's time spent on server", guild_ids=config.guild_ids)
     async def time(self, ctx: discord.ApplicationContext, user: Option(discord.Member, 'User whose time should be shown')):

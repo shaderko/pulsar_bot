@@ -1,15 +1,18 @@
 from PIL import Image, ImageDraw, ImageFont
 from config import config
 from io import BytesIO
+import os
+
 CIRCLE_OFFSET = 113
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 async def generate_banner(info):
-    banner = Image.open(config.banner)
+    banner = Image.open(os.path.join(BASE_DIR, config.banner))
     border = Image.open(
-        f'images/borders/theme-{info["border"]}-border.png').convert("RGBA").resize((600, 600), Image.LANCZOS)
+        os.path.join(BASE_DIR, f'images/borders/theme-{info["border"]}-border.png')).convert("RGBA").resize((600, 600), Image.LANCZOS)
     level = Image.open(
-        f'images/borders/theme-{info["border"]}-ring.png').convert("RGBA").resize((600, 600), Image.LANCZOS)
+        os.path.join(BASE_DIR, f'images/borders/theme-{info["border"]}-ring.png')).convert("RGBA").resize((600, 600), Image.LANCZOS)
     avatar_image = Image.open(info['avatar']).resize((325, 325), Image.LANCZOS)
 
     avatar = Image.new("RGBA", banner.size, (255, 255, 255, 0))
@@ -31,8 +34,8 @@ async def generate_banner(info):
     banner.paste(border, (banner.width//2-border.width//2, 10), border)
 
     txt = Image.new("RGBA", banner.size, (255, 255, 255, 0))
-    font = ImageFont.truetype("images/fonts/beaufortforlolja-regular.ttf", 40)
-    font_name = ImageFont.truetype("images/fonts/beaufortforlolja-regular.ttf", 80)
+    font = ImageFont.truetype(os.path.join(BASE_DIR, "images/fonts/beaufortforlolja-regular.ttf"), 40)
+    font_name = ImageFont.truetype(os.path.join(BASE_DIR, "images/fonts/beaufortforlolja-regular.ttf"), 80)
 
     ctx = ImageDraw.Draw(banner)
 
@@ -42,4 +45,4 @@ async def generate_banner(info):
              font=font_name, fill=(255, 255, 255, 255))
 
     out = Image.alpha_composite(banner, txt)
-    out.save('images/banner.png')
+    out.save(os.path.join(BASE_DIR, 'images/banner.png'))
