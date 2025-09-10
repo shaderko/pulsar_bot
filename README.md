@@ -1,92 +1,109 @@
-# pulsar_bot
+# Pulsar Bot
 
+A feature-rich Discord bot built with py-cord for managing community servers with levels, voting, birthday tracking, and dynamic channel management.
 
+## Features
 
-## Getting started
+### Core Systems
+- **Level System**: XP-based ranking with 21 custom ranks from Initiate to Overlord
+- **Birthday Tracking**: Automated birthday announcements and reminders
+- **Voting System**: Create and manage polls within Discord
+- **Split Channels**: Dynamic voice channel creation for organized discussions
+- **Activity Monitoring**: Track user engagement and presence
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+### Commands
+- **Basic Commands**: Essential utility functions
+- **Admin Tools**: Server management capabilities
+- **Reminder System**: Set and manage personal reminders
+- **Image Generation**: Dynamic banner and image creation
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+## Quick Start
 
-## Add your files
+### Prerequisites
+- Python 3.10+
+- MongoDB instance
+- Discord Bot Token
+- Mistral AI API Key (optional, for AI features)
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd pulsar_bot
+   ```
+
+2. **Install dependencies**
+   ```bash
+   pipenv install
+   pipenv shell
+   ```
+
+3. **Environment setup**
+   ```bash
+   cp .env.example .env
+   # Edit .env with your tokens and configuration
+   ```
+
+4. **Run with Docker (recommended)**
+   ```bash
+   docker-compose up -d
+   ```
+
+   **Or run locally**
+   ```bash
+   python bot.py
+   ```
+
+### Environment Variables
+```env
+DISCORD_TOKEN=your_discord_bot_token
+MISTRAL_API_KEY=your_mistral_api_key
+MONGO_URL=mongodb://localhost:27017/pulsar_bot
+```
+
+## Configuration
+
+Key settings in `config.py`:
+- **Guild IDs**: Target Discord servers
+- **XP System**: Base XP (200), active XP (15), level curve (1.4)
+- **Rank Names**: 21-tier progression system
+- **Channel IDs**: AFK and birthday announcement channels
+
+## Project Structure
 
 ```
-cd existing_repo
-git remote add origin https://gitlab.com/mbednarik/pulsar_bot.git
-git branch -M main
-git push -uf origin main
+pulsar_bot/
+├── bot.py              # Main bot entry point
+├── config.py           # Configuration and settings
+├── models/             # Database models
+├── cogs/
+│   ├── commands/       # Slash command implementations
+│   └── events/         # Event handlers
+├── images/             # Image generation and assets
+├── markov/             # Markov chain models
+└── db_backup/          # Database backup utilities
 ```
 
-## Integrate with your tools
+## Development
 
-- [ ] [Set up project integrations](https://gitlab.com/mbednarik/pulsar_bot/-/settings/integrations)
+### Adding New Features
+1. Create new cogs in `cogs/commands/` or `cogs/events/`
+2. Add extension to `config.startup_extensions`
+3. Follow existing patterns for database models in `models/`
 
-## Collaborate with your team
+### Database
+Uses MongoDB with MongoEngine ODM. Models are defined in `models/models.py`.
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+## Tech Stack
 
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!).  Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+- **Framework**: py-cord (Discord.py fork)
+- **Database**: MongoDB with MongoEngine
+- **Image Processing**: Pillow
+- **AI Integration**: Mistral AI
+- **Text Generation**: Markovify
+- **Deployment**: Docker + Docker Compose
 
 ## License
-For open source projects, say how it is licensed.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+MIT License
