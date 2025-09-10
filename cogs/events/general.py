@@ -10,6 +10,9 @@ class General(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
+        if message.author.bot:
+            return
+        
         if self.bot.user.id in (user.id for user in message.mentions):
             async with message.channel.typing():
                 try:
