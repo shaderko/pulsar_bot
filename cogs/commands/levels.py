@@ -206,8 +206,7 @@ class Levels(commands.Cog):
             time += (self.get_max_xp(i) / 15) * 5
         time += (member.xp / 15) * 5
         await ctx.followup.send(
-            f"{user.mention} has spent {'%.2f' %
-                                        (time / 60)} hours on Pulsar Server"
+            f"{user.mention} has spent {'%.2f' % (time / 60)} hours on Pulsar Server"
             + (", My pookie 😘" if user.name == "hertarger" else "")
         )
 
@@ -269,10 +268,8 @@ You can get XP by spending time in the voice channels. \nRank name and level wil
                 continue
 
             embed.add_field(
-                name=f"{'🔸' if user and user.id == member_id else '🔹'}#{
-                    i + 1} ~ {member.name}",
+                name=f"{'🔸' if user and user.id == member_id else '🔹'}#{i + 1} ~ {member.name}",
                 value=f"{member_lvl} - {self.get_rank_name(member_lvl)}",
-                inline=False,
             )
 
         await ctx.respond(embed=embed)
@@ -302,6 +299,10 @@ You can get XP by spending time in the voice channels. \nRank name and level wil
             )
 
         await ctx.respond(embed=embed)
+
+
+def setup(bot):
+    bot.add_cog(Levels(bot))
 
 
 def setup(bot):

@@ -37,7 +37,7 @@ class Birthday(commands.Cog):
         member.birthday = date(year, month, day)
         member.save()
 
-        await ctx.respond(f"Your birthday has been successfully set 🎉", ephemeral=True)
+        await ctx.respond("Your birthday has been successfully set 🎉", ephemeral=True)
 
     @slash_command(
         name="show_birthday",
@@ -64,7 +64,7 @@ class Birthday(commands.Cog):
 
         embed = discord.Embed(
             title="--------- Birthdays ---------",
-            description=f"Birthdays of all members",
+            description="Birthdays of all members",
             color=discord.Color.purple(),
         )
 

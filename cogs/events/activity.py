@@ -59,8 +59,7 @@ class Activity(commands.Cog):
 
         if counter > 0:
             logger.info(
-                f"Performed active bonus XP additon and game recognition for {
-                    counter} users."
+                f"Performed active bonus XP additon and game recognition for {counter} users."
             )
 
     @tasks.loop(hours=6)
